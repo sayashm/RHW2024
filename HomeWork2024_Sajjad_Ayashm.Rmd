@@ -1,5 +1,5 @@
 ---
-title: "HomeWork2024"
+title: "R HomeWork2024"
 author: "Sajjad Ayashm"
 date: "2024-10-21"
 output: html_document
@@ -7,24 +7,29 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
 ```
 
-## R Markdown
+## Question 1
+### Reading Data from mobility.csv
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+In this step, we read the historical occupational mobility data from the CSV file. The first column contains row names, so we specify row.names = 1 to treat them as such. We then convert the data frame into a matrix format:
 
 ```{r cars}
-summary(cars)
+mobility_data <- read.csv('mobility.csv', sep = ';', row.names = 1)
+mobility <- as.matrix(mobility_data, byrow= FALSE)
+
+kable(head(mobility), caption = "Preview of Mobility Data")
 ```
+## Question 2 
+### Using Matrix Package to Create a Sparse Matrix
 
-## Including Plots
 
-You can also embed plots, for example:
+We load the Matrix package to handle sparse matrices. We then convert the mobility matrix into a sparse matrix, which is a more efficient storage format for matrices with many zeros.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+
+library(Matrix)
+sparse_mobility <- Matrix(data = mobility, sparse = TRUE)
+
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
