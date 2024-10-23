@@ -33,3 +33,95 @@ library(Matrix)
 sparse_mobility <- Matrix(data = mobility, sparse = TRUE)
 
 ```
+
+
+#### Comparing Size of Dense and Sparse Matrices
+Here, we compare the memory sizes of the original dense matrix (mobility) and the sparse matrix (sparse_mobility) to see how much space is saved by using the sparse representation.
+
+```{r eval =TRUE}
+dence_size <- object.size(mobility)
+spare_size <- object.size(sparse_mobility)
+```
+
+The size of the dense matrix mobility is `r dence_size` bytes and the size of the sparse matrix sparse_mobility is `r spare_size` bytes.
+
+## Question 3
+### Proportion of Zeros in an R Object
+
+In this task, we need to write a function called `sparseProp()` that calculates the proportion of zeros in an R object (such as a vector or matrix). The function works by counting the number of zeros and dividing it by the total number of elements.
+
+
+``` {r eval =TRUE}
+sparseProp <- function(x){
+  total_elements <- length(x)
+  
+  total_zero <- sum(x == 1)
+  
+  proportion <- total_zero / total_elements
+  return(proportion)
+}
+```
+
+#### Example of using `sparseProp()`
+
+
+We can now test the function with an example vector and also apply it to the mobility matrix to see the proportion of zeros in both cases.
+
+``` {r}
+p <- sparseProp(sparse_mobility)
+print(p)
+```
+
+
+## Question 4
+### Extracting the Three Largest Values from the Mobility Matrix
+
+We are tasked with extracting the three largest values from the `mobility` matrix: 54, 51, and 28. This can be done using an index matrix that contains the corresponding `row` and `column` names.
+
+```{r}
+index_matrix <- matrix(c('Div', 'DIV',
+                         'Art', 'ART',
+                         'Arm', 'ARM'),
+                       nrow = 3, ncol =2, byrow =TRUE)
+```
+
+Extract the values using the index matrix:
+
+```{r}
+max_values <- mobility[as.matrix(index_matrix)]
+```
+
+The extracted values from the mobility matrix are:
+
+- `r max_values[1]` from `(Div, DIV)`
+- `r max_values[2]` from `(Art, ART)`
+- `r max_values[3]` from `(Arm, ARM)`
+
+
+## Question 5
+### Frequency of Values in a Matrix
+
+In this task, we need to write a function called `freqOfFreq()` that calculates the frequency of each unique value in a matrix. The function will raise an error if the input is not a matrix.
+
+```{r}
+freqOfFreq <- function(x){
+  stopifnot("the input of function should be a matrix" = is.matrix(x))
+  
+  freq_table <- table(x, dnn = NULL)
+  
+  return(freq_table)
+}
+```
+#### Working Example
+We will apply the function to an example matrix and the mobility matrix, which are both valid inputs.
+
+```{r}
+freqOfFreq(mobility)
+```
+#### Error Example
+We will now provide an invalid input to trigger the custom error message.
+```{r error=TRUE}
+freqOfFreq(sparse_mobility) # This will raise an error
+```
+
+

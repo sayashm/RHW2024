@@ -523,9 +523,96 @@ the mobility matrix into a sparse matrix, which is a more efficient
 storage format for matrices with many zeros.</p>
 <pre class="r"><code>library(Matrix)
 sparse_mobility &lt;- Matrix(data = mobility, sparse = TRUE)</code></pre>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
+<div id="comparing-size-of-dense-and-sparse-matrices" class="section level4">
+<h4>Comparing Size of Dense and Sparse Matrices</h4>
+<p>Here, we compare the memory sizes of the original dense matrix
+(mobility) and the sparse matrix (sparse_mobility) to see how much space
+is saved by using the sparse representation.</p>
+<pre class="r"><code>dence_size &lt;- object.size(mobility)
+spare_size &lt;- object.size(sparse_mobility)</code></pre>
+<p>The size of the dense matrix mobility is 3096 bytes and the size of
+the sparse matrix sparse_mobility is 5208 bytes.</p>
+</div>
+</div>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<div id="proportion-of-zeros-in-an-r-object" class="section level3">
+<h3>Proportion of Zeros in an R Object</h3>
+<p>In this task, we need to write a function called
+<code>sparseProp()</code> that calculates the proportion of zeros in an
+R object (such as a vector or matrix). The function works by counting
+the number of zeros and dividing it by the total number of elements.</p>
+<pre class="r"><code>sparseProp &lt;- function(x){
+  total_elements &lt;- length(x)
+  
+  total_zero &lt;- sum(x == 1)
+  
+  proportion &lt;- total_zero / total_elements
+  return(proportion)
+}</code></pre>
+<div id="example-of-using-sparseprop" class="section level4">
+<h4>Example of using <code>sparseProp()</code></h4>
+<p>We can now test the function with an example vector and also apply it
+to the mobility matrix to see the proportion of zeros in both cases.</p>
+<pre class="r"><code>p &lt;- sparseProp(sparse_mobility)
+print(p)</code></pre>
+<pre><code>## [1] 0.2244898</code></pre>
+</div>
+</div>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<div id="extracting-the-three-largest-values-from-the-mobility-matrix" class="section level3">
+<h3>Extracting the Three Largest Values from the Mobility Matrix</h3>
+<p>We are tasked with extracting the three largest values from the
+<code>mobility</code> matrix: 54, 51, and 28. This can be done using an
+index matrix that contains the corresponding <code>row</code> and
+<code>column</code> names.</p>
+<pre class="r"><code>index_matrix &lt;- matrix(c(&#39;Div&#39;, &#39;DIV&#39;,
+                         &#39;Art&#39;, &#39;ART&#39;,
+                         &#39;Arm&#39;, &#39;ARM&#39;),
+                       nrow = 3, ncol =2, byrow =TRUE)</code></pre>
+<p>Extract the values using the index matrix:</p>
+<pre class="r"><code>max_values &lt;- mobility[as.matrix(index_matrix)]</code></pre>
+<p>The extracted values from the mobility matrix are:</p>
+<ul>
+<li>54 from <code>(Div, DIV)</code></li>
+<li>51 from <code>(Art, ART)</code></li>
+<li>28 from <code>(Arm, ARM)</code></li>
+</ul>
+</div>
+</div>
+<div id="question-5" class="section level2">
+<h2>Question 5</h2>
+<div id="frequency-of-values-in-a-matrix" class="section level3">
+<h3>Frequency of Values in a Matrix</h3>
+<p>In this task, we need to write a function called
+<code>freqOfFreq()</code> that calculates the frequency of each unique
+value in a matrix. The function will raise an error if the input is not
+a matrix.</p>
+<pre class="r"><code>freqOfFreq &lt;- function(x){
+  stopifnot(&quot;the input of function should be a matrix&quot; = is.matrix(x))
+  
+  freq_table &lt;- table(x, dnn = NULL)
+  
+  return(freq_table)
+}</code></pre>
+<div id="working-example" class="section level4">
+<h4>Working Example</h4>
+<p>We will apply the function to an example matrix and the mobility
+matrix, which are both valid inputs.</p>
+<pre class="r"><code>freqOfFreq(mobility)</code></pre>
+<pre><code>##  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 20 23 28 51 54 
+## 52 44 18 16 12 12 11  5  2  3  1  2  3  3  1  2  1  2  1  1  1  1  1  1</code></pre>
+</div>
+<div id="error-example" class="section level4">
+<h4>Error Example</h4>
+<p>We will now provide an invalid input to trigger the custom error
+message.</p>
+<pre class="r"><code>freqOfFreq(sparse_mobility) # This will raise an error</code></pre>
+<pre><code>## Error in freqOfFreq(sparse_mobility): the input of function should be a matrix</code></pre>
+</div>
 </div>
 </div>
 
