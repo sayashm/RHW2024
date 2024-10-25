@@ -56,11 +56,33 @@ freqOfFreq <- function(x){
 
 freqOfFreq(mobility)
 
+# Question 6
 
+# meamFOF function: A function designed to compute the mean frequency of a matrix.
 
+meanFOF <- function(freq_table){
+  freq_values <- as.numeric(names(freq_table))
+  
+  mean_value <- sum(freq_values * freq_table) / sum(freq_table)
+  return(mean_value)
+}
 
+# varFOF function: A function designed to compute the variance frequency of a matrix.
+varFOF <- function(freq_table){
+  freq_values <- as.numeric(names(freq_table))
+  # Calculate the mean of freq_table:
+  mean_value <- meanFOF(freq_table)
+  
+  # Calculate the variance of freq_value
+  variance <- sum((freq_values - mean_value)^2 * freq_table) / sum(freq_table)
 
+  
+  return(variance)
+}
 
+meanFOF(freqOfFreq(mobility))
+
+varFOF(freqOfFreq(mobility))
 
 
 
