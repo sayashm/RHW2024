@@ -74,15 +74,15 @@ varFOF <- function(freq_table){
   mean_value <- meanFOF(freq_table)
   
   # Calculate the variance of freq_value
-  variance <- sum((freq_values - mean_value)^2 * freq_table) / sum(freq_table)
+  variance <- sum((freq_values - mean_value)^2 * freq_table) / (sum(freq_table)-1)
 
   
   return(variance)
 }
 
-meanFOF(freqOfFreq(mobility))
+mean_fof <- meanFOF(freqOfFreq(mobility))
 
-varFOF(freqOfFreq(mobility))
+var_fof <- varFOF(freqOfFreq(mobility))
 
 
 
