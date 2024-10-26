@@ -1,4 +1,5 @@
-# Statistical Data Analysis on Mobility Matrix
+# Statistical Computing R - HomeWork 2024 on Mobility Matrix
+## Gent University 
 
 This repository contains R code for statistical data analysis on the **mobility** matrix, a contingency table analyzing occupational mobility. The project explores key statistical concepts, including expected values, Pearson residuals, and the chi-squared statistic, to assess independence between rows and columns.
 
