@@ -107,6 +107,14 @@ expected <- function(x){
 expected(matrix_fof)
 
 
+# Question 8
+# Pearson residuals for a chi-squared test
+
+pearson <- function(x){
+  ...
+}
+
+
 
 
 

@@ -674,140 +674,354 @@ the variance is 46.2286499.</p>
 in a matrix using row and column totals. The <code>expected()</code>
 function takes a matrix as input and calculates the expected frequencies
 for each cell, assuming independence between rows and columns.</p>
-<pre class="r"><code># Define the expected function
-expected &lt;- function(x) {
-  # Raise an error if x is not a matrix
-  stopifnot(&quot;the input of function should be a matrix&quot; = is.matrix(x))
+<pre class="r"><code>expected &lt;- function(x){
+  # raise error if x is not matrix
+  stopifnot(&quot;the input of function should be a matrix&quot;=is.matrix(x))
   
-  # Calculate expected values without using a loop or additional packages
+  # claculate expected value (without &#39;for&#39; loop or other packages):
   row_total &lt;- rowSums(x)
   col_total &lt;- colSums(x)
   grand_total &lt;- sum(x)
   
-  # Expected values for each cell
-  expected_val &lt;- outer(row_total, col_total) / grand_total
+  expected_val &lt;-  outer(row_total, col_total)/grand_total
   return(expected_val)
+  
 }</code></pre>
 <div id="example-usage-of-expected" class="section level4">
 <h4>Example Usage of <code>expected()</code></h4>
 <p>We can now apply the <code>expected()</code> function to our example
-matrix, <code>matrix_fof</code>, to get the expected values for each
+matrix, <code>mobility</code>, to get the expected values for each
 cell.</p>
-<pre class="r"><code># Convert data to a matrix if needed
-matrix_fof &lt;- as.matrix(freqOfFreq(mobility))
-
-# Calculate the expected values
-expected_matrix &lt;- expected(matrix_fof)</code></pre>
-<pre class="r"><code>kable(freqOfFreq(mobility))</code></pre>
-<table>
+<pre class="r"><code># Calculate the expected values
+expected(mobility)</code></pre>
+<table style="width:100%;">
+<caption>Expected Value of Mobility Data</caption>
+<colgroup>
+<col width="2%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Var1</th>
-<th align="right">Freq</th>
+<th align="left"></th>
+<th align="right">ARM</th>
+<th align="right">ART</th>
+<th align="right">TCC</th>
+<th align="right">CRA</th>
+<th align="right">DIV</th>
+<th align="right">AGR</th>
+<th align="right">LAN</th>
+<th align="right">LAW</th>
+<th align="right">LIT</th>
+<th align="right">COM</th>
+<th align="right">MED</th>
+<th align="right">NAV</th>
+<th align="right">POL</th>
+<th align="right">SCH</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">0</td>
-<td align="right">52</td>
+<td align="left">Arm</td>
+<td align="right">5.419355</td>
+<td align="right">6.967742</td>
+<td align="right">2.387097</td>
+<td align="right">0.7096774</td>
+<td align="right">7.870968</td>
+<td align="right">0.0645161</td>
+<td align="right">0.9677419</td>
+<td align="right">4.129032</td>
+<td align="right">4.451613</td>
+<td align="right">1.5483871</td>
+<td align="right">3.677419</td>
+<td align="right">1.4838710</td>
+<td align="right">4.774193</td>
+<td align="right">5.548387</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="right">44</td>
+<td align="left">Art</td>
+<td align="right">6.720000</td>
+<td align="right">8.640000</td>
+<td align="right">2.960000</td>
+<td align="right">0.8800000</td>
+<td align="right">9.760000</td>
+<td align="right">0.0800000</td>
+<td align="right">1.2000000</td>
+<td align="right">5.120000</td>
+<td align="right">5.520000</td>
+<td align="right">1.9200000</td>
+<td align="right">4.560000</td>
+<td align="right">1.8400000</td>
+<td align="right">5.920000</td>
+<td align="right">6.880000</td>
 </tr>
 <tr class="odd">
-<td align="left">2</td>
-<td align="right">18</td>
+<td align="left">Tcc</td>
+<td align="right">5.852903</td>
+<td align="right">7.525161</td>
+<td align="right">2.578064</td>
+<td align="right">0.7664516</td>
+<td align="right">8.500645</td>
+<td align="right">0.0696774</td>
+<td align="right">1.0451613</td>
+<td align="right">4.459355</td>
+<td align="right">4.807742</td>
+<td align="right">1.6722581</td>
+<td align="right">3.971613</td>
+<td align="right">1.6025806</td>
+<td align="right">5.156129</td>
+<td align="right">5.992258</td>
 </tr>
 <tr class="even">
-<td align="left">3</td>
-<td align="right">16</td>
+<td align="left">Cra</td>
+<td align="right">4.769032</td>
+<td align="right">6.131613</td>
+<td align="right">2.100645</td>
+<td align="right">0.6245161</td>
+<td align="right">6.926452</td>
+<td align="right">0.0567742</td>
+<td align="right">0.8516129</td>
+<td align="right">3.633548</td>
+<td align="right">3.917419</td>
+<td align="right">1.3625806</td>
+<td align="right">3.236129</td>
+<td align="right">1.3058065</td>
+<td align="right">4.201290</td>
+<td align="right">4.882581</td>
 </tr>
 <tr class="odd">
-<td align="left">4</td>
-<td align="right">12</td>
+<td align="left">Div</td>
+<td align="right">12.464516</td>
+<td align="right">16.025807</td>
+<td align="right">5.490323</td>
+<td align="right">1.6322581</td>
+<td align="right">18.103226</td>
+<td align="right">0.1483871</td>
+<td align="right">2.2258065</td>
+<td align="right">9.496774</td>
+<td align="right">10.238710</td>
+<td align="right">3.5612903</td>
+<td align="right">8.458065</td>
+<td align="right">3.4129032</td>
+<td align="right">10.980645</td>
+<td align="right">12.761290</td>
 </tr>
 <tr class="even">
-<td align="left">5</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">6</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">7</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">8</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">9</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">11</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">12</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">13</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">14</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">15</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">16</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">17</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">18</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">20</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">23</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">28</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">51</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">54</td>
-<td align="right">1</td>
+<td align="left">Agr</td>
+<td align="right">2.818065</td>
+<td align="right">3.623226</td>
+<td align="right">1.241290</td>
+<td align="right">0.3690323</td>
+<td align="right">4.092903</td>
+<td align="right">0.0335484</td>
+<td align="right">0.5032258</td>
+<td align="right">2.147097</td>
+<td align="right">2.314839</td>
+<td align="right">0.8051613</td>
+<td align="right">1.912258</td>
+<td align="right">0.7716129</td>
+<td align="right">2.482581</td>
+<td align="right">2.885161</td>
 </tr>
 </tbody>
 </table>
-<p>The resulting matrix displays the <em>expected frequency for each
-cell</em>, based on the row and column totals and assuming
+<p>The resulting matrix displays the <strong><em>expected
+frequency</em></strong> for each cell, based on the row and column
+totals and assuming independence.</p>
+</div>
+</div>
+</div>
+<div id="question-8" class="section level2">
+<h2>Question 8</h2>
+<div id="pearson-residuals" class="section level3">
+<h3>Pearson Residuals</h3>
+<p>In this question, we calculate the Pearson residuals for each cell in
+the <code>mobility</code> matrix. The residuals indicate how much the
+observed values deviate from the expected values under the assumption of
 independence.</p>
+<pre class="r"><code># Define the Pearson residuals function with error handling for expected()
+pearson &lt;- function(x) {
+  # Ensure input is a matrix
+  stopifnot(&quot;The input of the function should be a matrix&quot; = is.matrix(x))
+  
+  # Try to calculate expected values and catch any errors
+  expected_matrix &lt;- tryCatch({
+    expected(x)
+  }, error = function(e) {
+    stop(&quot;Error in calculating expected values: &quot;, e$message)
+  })
+  
+  # Calculate Pearson residuals if expected values were calculated successfully
+  residuals &lt;- (x - expected_matrix) / sqrt(expected_matrix)
+  
+  return(residuals)
+}</code></pre>
+<div id="example-usage-of-pearson" class="section level4">
+<h4>Example Usage of <code>pearson()</code></h4>
+<p>We now apply the <code>pearson()</code> function to the
+<code>mobility</code> matrix to calculate and display the Pearson
+residuals.</p>
+<pre class="r"><code># Calculate the expected values
+pearson(mobility)</code></pre>
+<table style="width:100%;">
+<caption>Pearson Residuals Value of Mobility Data</caption>
+<colgroup>
+<col width="2%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">ARM</th>
+<th align="right">ART</th>
+<th align="right">TCC</th>
+<th align="right">CRA</th>
+<th align="right">DIV</th>
+<th align="right">AGR</th>
+<th align="right">LAN</th>
+<th align="right">LAW</th>
+<th align="right">LIT</th>
+<th align="right">COM</th>
+<th align="right">MED</th>
+<th align="right">NAV</th>
+<th align="right">POL</th>
+<th align="right">SCH</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Arm</td>
+<td align="right">9.6997949</td>
+<td align="right">-2.6396481</td>
+<td align="right">1.043935</td>
+<td align="right">-0.8424235</td>
+<td align="right">-2.8055245</td>
+<td align="right">-0.2540003</td>
+<td align="right">0.0327913</td>
+<td align="right">-0.5556256</td>
+<td align="right">-0.6880058</td>
+<td align="right">-1.2443420</td>
+<td align="right">-0.3532531</td>
+<td align="right">-0.3972204</td>
+<td align="right">0.1033443</td>
+<td align="right">-1.5064253</td>
+</tr>
+<tr class="even">
+<td align="left">Art</td>
+<td align="right">-1.8207795</td>
+<td align="right">14.4111647</td>
+<td align="right">-1.139227</td>
+<td align="right">0.1279204</td>
+<td align="right">-2.4839155</td>
+<td align="right">-0.2828427</td>
+<td align="right">-1.0954451</td>
+<td align="right">-1.8208000</td>
+<td align="right">-1.4982115</td>
+<td align="right">-1.3856406</td>
+<td align="right">-2.1354157</td>
+<td align="right">-1.3564660</td>
+<td align="right">-2.0221075</td>
+<td align="right">-2.2417290</td>
+</tr>
+<tr class="odd">
+<td align="left">Tcc</td>
+<td align="right">0.0608019</td>
+<td align="right">-0.9205157</td>
+<td align="right">2.754010</td>
+<td align="right">-0.8754722</td>
+<td align="right">0.1712708</td>
+<td align="right">3.5244190</td>
+<td align="right">1.9121382</td>
+<td align="right">0.7295694</td>
+<td align="right">-0.3683851</td>
+<td align="right">0.2534430</td>
+<td align="right">-1.4911069</td>
+<td align="right">-0.4759981</td>
+<td align="right">-1.3899298</td>
+<td align="right">0.4116746</td>
+</tr>
+<tr class="even">
+<td align="left">Cra</td>
+<td align="right">-2.1838114</td>
+<td align="right">2.3699075</td>
+<td align="right">-1.449360</td>
+<td align="right">6.8021426</td>
+<td align="right">-0.7319859</td>
+<td align="right">-0.2382734</td>
+<td align="right">-0.9228288</td>
+<td align="right">-1.3815793</td>
+<td align="right">1.5574511</td>
+<td align="right">-0.3106158</td>
+<td align="right">-0.6871490</td>
+<td align="right">-1.1427189</td>
+<td align="right">-2.0497049</td>
+<td align="right">2.3159346</td>
+</tr>
+<tr class="odd">
+<td align="left">Div</td>
+<td align="right">-2.1142870</td>
+<td align="right">-2.7542314</td>
+<td align="right">-1.489590</td>
+<td align="right">-0.4948801</td>
+<td align="right">8.4367939</td>
+<td align="right">-0.3852105</td>
+<td align="right">-1.4919137</td>
+<td align="right">-1.1346960</td>
+<td align="right">-0.3871212</td>
+<td align="right">0.2324735</td>
+<td align="right">1.2178818</td>
+<td align="right">-0.2235045</td>
+<td align="right">-3.0119287</td>
+<td align="right">0.0668225</td>
+</tr>
+<tr class="even">
+<td align="left">Agr</td>
+<td align="right">-1.6787092</td>
+<td align="right">-0.8527687</td>
+<td align="right">1.578547</td>
+<td align="right">-0.6074803</td>
+<td align="right">-0.5402142</td>
+<td align="right">-0.1831622</td>
+<td align="right">-0.7093841</td>
+<td align="right">-0.7828422</td>
+<td align="right">1.1075953</td>
+<td align="right">0.2171370</td>
+<td align="right">1.5097449</td>
+<td align="right">1.3984132</td>
+<td align="right">-0.9409502</td>
+<td align="right">1.2450655</td>
+</tr>
+</tbody>
+</table>
+<p>The resulting matrix displays the <strong><em>Pearson
+residuals</em></strong>, showing the deviations between
+<em>observed</em> and <em>expected</em> values for each cell in the
+contingency table.</p>
 </div>
 </div>
 </div>

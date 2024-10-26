@@ -174,33 +174,67 @@ The calculated mean of the frequency of frequencies is `r mean_fof`, and the var
 In this question, we calculate the expected frequency for each cell in a matrix using row and column totals. The `expected()` function takes a matrix as input and calculates the expected frequencies for each cell, assuming independence between rows and columns.
 
 ```{r eval=TRUE}
-# Define the expected function
-expected <- function(x) {
-  # Raise an error if x is not a matrix
-  stopifnot("the input of function should be a matrix" = is.matrix(x))
+expected <- function(x){
+  # raise error if x is not matrix
+  stopifnot("the input of function should be a matrix"=is.matrix(x))
   
-  # Calculate expected values without using a loop or additional packages
+  # claculate expected value (without 'for' loop or other packages):
   row_total <- rowSums(x)
   col_total <- colSums(x)
   grand_total <- sum(x)
   
-  # Expected values for each cell
-  expected_val <- outer(row_total, col_total) / grand_total
+  expected_val <-  outer(row_total, col_total)/grand_total
   return(expected_val)
+  
 }
 ```
 
 #### Example Usage of `expected()`
-We can now apply the `expected()` function to our example matrix, `matrix_fof`, to get the expected values for each cell.
+We can now apply the `expected()` function to our example matrix, `mobility`, to get the expected values for each cell.
 
-```{r eval=TRUE}
-# Convert data to a matrix if needed
-matrix_fof <- as.matrix(freqOfFreq(mobility))
-
+```{r eval=FALSE}
 # Calculate the expected values
-expected_matrix <- expected(matrix_fof)
+expected(mobility)
 ```
+```{r echo = FALSE}
+kable(head(expected(mobility)), caption = "Expected Value of Mobility Data")
+```
+The resulting matrix displays the ***expected frequency*** for each cell, based on the row and column totals and assuming independence.
+
+## Question 8
+### Pearson Residuals
+
+In this question, we calculate the Pearson residuals for each cell in the `mobility` matrix. The residuals indicate how much the observed values deviate from the expected values under the assumption of independence.
+
 ```{r}
-kable(freqOfFreq(mobility))
+# Define the Pearson residuals function with error handling for expected()
+pearson <- function(x) {
+  # Ensure input is a matrix
+  stopifnot("The input of the function should be a matrix" = is.matrix(x))
+  
+  # Try to calculate expected values and catch any errors
+  expected_matrix <- tryCatch({
+    expected(x)
+  }, error = function(e) {
+    stop("Error in calculating expected values: ", e$message)
+  })
+  
+  # Calculate Pearson residuals if expected values were calculated successfully
+  residuals <- (x - expected_matrix) / sqrt(expected_matrix)
+  
+  return(residuals)
+}
 ```
-The resulting matrix displays the *expected frequency for each cell*, based on the row and column totals and assuming independence.
+
+#### Example Usage of `pearson()`
+
+We now apply the `pearson()` function to the `mobility` matrix to calculate and display the Pearson residuals.
+
+```{r eval=FALSE}
+# Calculate the expected values
+pearson(mobility)
+```
+```{r echo = FALSE}
+kable(head(pearson(mobility)), caption = "Pearson Residuals Value of Mobility Data")
+```
+The resulting matrix displays the ***Pearson residuals***, showing the deviations between *observed* and *expected* values for each cell in the contingency table.
