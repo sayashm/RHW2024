@@ -88,8 +88,6 @@ var_fof <- varFOF(freqOfFreq(mobility))
 # Question 7
 # Expected Value for each cell
 
-matrix_fof <- as.matrix(fof)
-
 expected <- function(x){
   # raise error if x is not matrix
   stopifnot("the input of function should be a matrix"=is.matrix(x))
@@ -104,19 +102,58 @@ expected <- function(x){
   
 }
 
-expected(matrix_fof)
+expected(mobility)
+
+chisq.test(mobility, correct = FALSE)$expected
 
 
 # Question 8
 # Pearson residuals for a chi-squared test
 
-pearson <- function(x){
-  ...
+pearson <- function(x) {
+  # Ensure input is a matrix first
+  stopifnot("The input of the function should be a matrix" = is.matrix(x))
+  
+  # Try to calculate expected values and catch any errors
+  expected_matrix <- tryCatch({
+    expected(x)
+  }, error = function(e) {
+    stop("Error in calculating expected values: ", e$message)
+  })
+  
+  # Calculate Pearson residuals if expected values were calculated successfully
+  residuals <- (x - expected_matrix) / sqrt(expected_matrix)
+  
+  return(residuals)
 }
 
+pearson(mobility)
+
+# Question 9
+# Person's X^2 statistic
 
 
+chisquared <- function(x){
+  # Ensure input is a matrix first
+  stopifnot("The input of the function should be a matrix" = is.matrix(x))
+  
+  # Try to calculate expected values and catch any errors
+  expected_matrix <- tryCatch({
+    expected(x)
+  }, error = function(e) {
+    stop("Error in calculating expected values: ", e$message)
+  })
+  
+  # Calculate Chi squared
+  chisq <- sum(((x - expected_matrix)^2)/expected_matrix)
+  
+    # Set class as "chisquared"
+  class(chisq) <- "chisquared"
+  
+  return(chisq)
+}
 
+chisquared(mobility)
 
 
 

@@ -1025,6 +1025,54 @@ contingency table.</p>
 </div>
 </div>
 </div>
+<div id="question-9" class="section level2">
+<h2>Question 9</h2>
+<p>###Pearson’s Chi-Squared Statistic</p>
+<p>In this question, we calculate Pearson’s chi-squared statistic for
+the <strong><em>mobility</em></strong> matrix. This statistic indicates
+how much the observed values deviate from the expected values, assuming
+independence between rows and columns.</p>
+<pre class="r"><code># Define the Chi-squared function
+chisquared &lt;- function(x) {
+  # Ensure input is a matrix
+  stopifnot(&quot;The input of the function should be a matrix&quot; = is.matrix(x))
+  
+  # Try to calculate expected values and catch any errors
+  expected_matrix &lt;- tryCatch({
+    expected(x)
+  }, error = function(e) {
+    stop(&quot;Error in calculating expected values: &quot;, e$message)
+  })
+  
+  # Calculate Chi-squared statistic
+  chisq &lt;- sum(((x - expected_matrix)^2) / expected_matrix)
+  
+  # Set class as &quot;chisquared&quot;
+  class(chisq) &lt;- &quot;chisquared&quot;
+  
+  return(chisq)
+}</code></pre>
+<div id="example-usage-of-chisquared" class="section level4">
+<h4>Example Usage of <code>chisquared()</code></h4>
+<p>We now apply the <code>chisquared()</code> function to the
+<strong><em>mobility</em></strong> matrix to compute the
+<strong><em>chi-squared</em></strong> statistic.</p>
+<pre class="r"><code># Calculate Chi-squared statistic for the mobility matrix
+custom_chisq &lt;- chisquared(mobility)</code></pre>
+<p>The Pearson’s chi-squared statistic for the <strong>mobility</strong>
+matrix, calculated using the custom 1005.4537322 function, is
+<em>1005.4537322</em>.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>In this analysis, we calculated key statistical measures for the
+<strong>mobility</strong> matrix, including expected values, Pearson
+residuals, and Pearson’s chi-squared statistic. The consistency of our
+custom calculations with R’s built-in functions confirmed the accuracy
+of our approach, demonstrating a solid understanding of contingency
+table analysis and chi-squared testing for independence.</p>
+</div>
 
 
 
